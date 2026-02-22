@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz – English vocabulary</title>
 <style>
   body { font-family: Arial, sans-serif; background:#0f172a; margin:0; padding:20px; color:#e5e7eb; }
@@ -78,6 +79,74 @@
 
 .dropdown-menu input {
   accent-color:#3b82f6;
+}
+
+/* ===== Mobile ===== */
+
+@media (max-width: 768px) {
+
+  body {
+    padding: 10px;
+  }
+
+  .app {
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question {
+    font-size: 1.1rem;
+  }
+
+  .stats {
+    font-size: 0.85rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .dropdown-menu {
+    min-width: 200px;
+    max-width: 90vw;
+  }
+}
+@media (max-width: 480px) {
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  .option {
+    padding: 14px;
+    font-size: 0.95rem;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .dropdown-btn {
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+  }
 }
 
 
