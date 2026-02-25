@@ -247,6 +247,6 @@ export const vocab = [
 
 // speaking
 {pl:"stowarzyszenie", en:"association", scope:"workplace"},
-{pl:"wzór do naśladowania", en:"role model", scope:"traits"},
-{pl:"wypatrywać", en:"scout", scope:"actions"}
+{pl:"wzór do naśladowania", en:"role model", scope:"skills"},
+{pl:"wypatrywać", en:"scout", scope:"work-conditions"}
 ]
