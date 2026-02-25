@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz – English vocabulary</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#0f172a; margin:0; padding:20px; color:#e5e7eb; }
+  .app { max-width: 800px; margin: 0 auto; background:#111827; padding:20px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.4); border:1px solid #1f2933; }
+  h1 { margin-top:0; color:#f9fafb; }
+  .top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+  .stats { background:#0b1220; padding:8px 12px; border-radius:8px; border:1px solid #1f2937; font-size:0.9rem; }
+
+
+  .filter-item { display:flex; align-items:center; gap:6px; }
+  .filter-item input { accent-color:#3b82f6; }
+
+  button { padding:8px 12px; border:none; border-radius:8px; cursor:pointer; font-size:0.95rem; }
+  .primary { background:#3b82f6; color:white; }
+  .secondary { background:#1f2937; color:#e5e7eb; border:1px solid #374151; }
+  .danger { background:#7f1d1d; color:#e5e7eb; border:1px solid #b91c1c; }
+
+  .question { font-size:1.2rem; margin:20px 0; color:#f3f4f6; }
+  .options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .option { background:#111827; border:1px solid #374151; padding:12px; border-radius:10px; text-align:left; color:#e5e7eb; }
+  .option:hover { background:#1f2937; }
+  .correct { background:#064e3b !important; border-color:#22c55e; }
+  .wrong { background:#7f1d1d !important; border-color:#ef4444; }
+  .info { margin-top:15px; min-height:22px; }
+  .footer { margin-top:20px; font-size:.9rem; color:#9ca3af; }
+.filters {
+  position: relative;
+  margin: 12px 0;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  background:#1f2937;
+  color:#e5e7eb;
+  border:1px solid #374151;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.dropdown-btn:hover {
+  background:#374151;
+}
+
+.dropdown-menu {
+  position:absolute;
+  top:110%;
+  left:0;
+  background:#111827;
+  border:1px solid #374151;
+  border-radius:10px;
+  padding:10px;
+  display:none;
+  flex-direction:column;
+  gap:8px;
+  min-width:250px;
+  max-height:220px;
+  overflow-y:auto;
+  box-shadow:0 8px 20px rgba(0,0,0,.6);
+  z-index:100;
+}
+
+.dropdown-menu label {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  cursor:pointer;
+  color:#e5e7eb;
+}
+
+.dropdown-menu input {
+  accent-color:#3b82f6;
+}
+
+/* ===== Mobile ===== */
+
+@media (max-width: 768px) {
+
+  body {
+    padding: 10px;
+  }
+
+  .app {
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question {
+    font-size: 1.1rem;
+  }
+
+  .stats {
+    font-size: 0.85rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .dropdown-menu {
+    min-width: 200px;
+    max-width: 90vw;
+  }
+}
+@media (max-width: 480px) {
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  .option {
+    padding: 14px;
+    font-size: 0.95rem;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .dropdown-btn {
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+  }
+}
+
+
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <h1>Quiz – English vocabulary</h1>
+    <div class="stats" id="stats">Correct: 0 | Wrong: 0</div>
+  </div>
+
+ <div class="filters">
+  <div class="dropdown">
+    <button type="button" class="dropdown-btn" id="dropdownBtn">
+      Vocabulary scope (<span id="selectedCount">6</span>)
+    </button>
+
+    <div class="dropdown-menu" id="dropdownMenu">
+      <label><input type="checkbox" class="scope" value="bhp-osp-it" checked> BHP/OHS w IT</label>
+      <label><input type="checkbox" class="scope" value="jobs" checked> Jobs</label>
+      <label><input type="checkbox" class="scope" value="employment" checked> Employment</label>
+      <label><input type="checkbox" class="scope" value="workplace" checked> Workplace</label>
+      <label><input type="checkbox" class="scope" value="skills" checked> Skills & qualities</label>
+      <label><input type="checkbox" class="scope" value="job-search" checked> Job search</label>
+      <label><input type="checkbox" class="scope" value="work-conditions" checked> Work conditions</label>
+      <label><input type="checkbox" class="scope" value="feelings" checked> Feelings</label>
+    </div>
+  </div>
+</div>
+
+
+  <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+    <button id="toggleBtn" class="secondary">Mode: PL → EN</button>
+    <button id="nextBtn" class="primary">Next</button>
+    <button id="resetBtn" class="danger">Reset stats</button>
+  </div>
+
+  <div id="question" class="question"></div>
+  <div id="options" class="options"></div>
+  <div id="info" class="info"></div>
+  <div class="footer">Click an answer. Green = correct.</div>
+</div>
+
+<script type="module" src="core.js"></script>
+</body>
+</html>
